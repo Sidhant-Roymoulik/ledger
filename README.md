@@ -11,12 +11,12 @@ Adding Users:
 ```bash
 .\create_user.exe [name]
 ```
-Adding Request Transaction:
+Adding Transactions:
 ```bash
+# Request Transaction
 .\create_transaction.exe r [requester] [debtor] [amount]
-```
-Adding Payment Transaction:
-```bash
+
+# Pay-Off Transaction
 .\create_transaction.exe p [payer] [reciever] [amount]
 ```
 Calculate Easiest Close-Out Transactions:
