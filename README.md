@@ -4,6 +4,7 @@
 
 Creating the executables:
 ```bash
+cd .\src\
 make
 ```
 Adding Users:
