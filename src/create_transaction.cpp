@@ -31,8 +31,8 @@ int get_max_id(string filename, map<string, int> &user_id) {
     return id;
 }
 
-// Use .\create_transaction.exe r [requester] [payer] [amount]
-// Use .\create_transaction.exe p [payer] [requester] [amount]
+// Use .\create_transaction.exe r [requester] [debtor] [amount]
+// Use .\create_transaction.exe p [payer] [reciever] [amount]
 int main(int argc, char *argv[]) {
     assert(argc == 5);
 

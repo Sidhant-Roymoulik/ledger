@@ -68,10 +68,10 @@ int main(int argc, char *argv[]) {
 
     vector<int> net = fill_need(transactions, num_users);
 
-    for (int i = 0; i < num_users; i++) {
-        cout << net[i] << ' ';
-    }
-    cout << endl;
+    // for (int i = 0; i < num_users; i++) {
+    //     cout << net[i] << ' ';
+    // }
+    // cout << endl;
 
     min_cash_flow(net, num_users, id_to_username);
 
