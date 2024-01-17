@@ -21,15 +21,16 @@ int iter_users(map<int, string> &id_to_username) {
         ifs >> id >> user_name;
         id_to_username[id] = user_name;
     }
+
     ifs.close();
     return id + 1;
 }
 
-vector<int> fill_need(string filename, int num_users) {
-    vector<int> net(num_users, 0);
+vector<int> fill_need(int num_users) {
     ifstream ifs;
-    ifs.open(filename, fstream::app);
+    ifs.open(transactions, fstream::app);
 
+    vector<int> net(num_users, 0);
     while (!ifs.eof()) {
         string type;
         int id_1, id_2, amount;
@@ -40,6 +41,7 @@ vector<int> fill_need(string filename, int num_users) {
         net[id_1] += amount;
         net[id_2] -= amount;
     }
+
     ifs.close();
     return net;
 }
@@ -64,7 +66,7 @@ int main(int argc, char *argv[]) {
     map<int, string> id_to_username;
     int num_users = iter_users(id_to_username);
 
-    vector<int> net = fill_need(transactions, num_users);
+    vector<int> net = fill_need(num_users);
 
     // for (auto n : net) cout << n << ' ';
     // cout << endl;

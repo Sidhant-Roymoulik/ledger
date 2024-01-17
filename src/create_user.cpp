@@ -22,17 +22,18 @@ int get_index(string name) {
             return -1;
         }
     }
+
     ifs.close();
     return id + 1;
 }
 
-void write_to_ledger(int id, string name) {
-    if (id == -1) return;
+void write_to_users(int id, string name) {
+    ofstream ofs;
+    ofs.open(users, fstream::app);
 
-    ofstream f;
-    f.open(users, fstream::app);
-    f << id << ' ' << name << endl;
-    f.close();
+    ofs << id << ' ' << name << endl;
+
+    ofs.close();
 }
 
 int main(int argc, char *argv[]) {
@@ -43,7 +44,7 @@ int main(int argc, char *argv[]) {
 
     if (id == -1) return 0;
 
-    write_to_ledger(id, name);
+    write_to_users(id, name);
 
     return 0;
 }
