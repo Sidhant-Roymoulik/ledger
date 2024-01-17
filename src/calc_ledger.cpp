@@ -35,12 +35,10 @@ vector<int> fill_need(string filename, int num_users) {
         int id_1, id_2, amount;
         ifs >> type >> id_1 >> id_2 >> amount;
 
-        // cout << type << ' ' << id_1 << ' ' << id_2 << ' ' << amount << endl;
+        if (!(type == "r" || type == "p")) break;
 
-        if (type == "r" || type == "p") {
-            net[id_1] += amount;
-            net[id_2] -= amount;
-        }
+        net[id_1] += amount;
+        net[id_2] -= amount;
     }
     ifs.close();
     return net;
@@ -56,7 +54,7 @@ void min_cash_flow(vector<int> &net, int num_users, map<int, string> &id_to_user
     net[max_credit_index] -= transaction_amount;
     net[max_debit_index] += transaction_amount;
 
-    std::printf("%8s  pays %8s  $%d.%02d\n", id_to_username[max_debit_index].c_str(),
+    std::printf("%10s  pays  %10s  $%d.%02d\n", id_to_username[max_debit_index].c_str(),
                 id_to_username[max_credit_index].c_str(), transaction_amount / 100, transaction_amount % 100);
 
     min_cash_flow(net, num_users, id_to_username);
@@ -68,9 +66,7 @@ int main(int argc, char *argv[]) {
 
     vector<int> net = fill_need(transactions, num_users);
 
-    // for (int i = 0; i < num_users; i++) {
-    //     cout << net[i] << ' ';
-    // }
+    // for (auto n : net) cout << n << ' ';
     // cout << endl;
 
     min_cash_flow(net, num_users, id_to_username);

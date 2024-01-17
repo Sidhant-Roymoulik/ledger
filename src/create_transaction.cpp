@@ -36,27 +36,33 @@ int get_max_id(string filename, map<string, int> &user_id) {
 int main(int argc, char *argv[]) {
     assert(argc == 5);
 
-    string type = argv[1], requester = argv[2], payer = argv[3];
-    int amount = stoi(argv[4]);
+    string type = argv[1];
+    int amount  = stoi(argv[4]);
 
     assert(type == "r" || type == "p");
 
     map<string, int> user_id;
     int max_id = get_max_id(users, user_id);
 
-    if (type == "p") {
-        requester = argv[3];
-        payer     = argv[2];
+    if (type == "r") {
+        string requester = argv[2];
+        string debtor    = argv[3];
+
+        assert(user_id[requester] <= max_id);
+        assert(user_id[debtor] <= max_id);
+        assert(user_id[requester] != user_id[debtor]);
+
+        write_to_ledger(transactions, type, user_id[requester], user_id[debtor], amount);
+    } else if (type == "p") {
+        string payer    = argv[2];
+        string reciever = argv[3];
+
+        assert(user_id[payer] <= max_id);
+        assert(user_id[reciever] <= max_id);
+        assert(user_id[payer] != user_id[reciever]);
+
+        write_to_ledger(transactions, type, user_id[payer], user_id[reciever], amount);
     }
-
-    assert(user_id[requester] <= max_id);
-    assert(user_id[payer] <= max_id);
-    assert(user_id[requester] != user_id[payer]);
-
-    if (type == "r")
-        write_to_ledger(transactions, type, user_id[requester], user_id[payer], amount);
-    else if (type == "p")
-        write_to_ledger(transactions, type, user_id[payer], user_id[requester], amount);
 
     return 0;
 }
