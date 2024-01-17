@@ -6,12 +6,15 @@
 using namespace std;
 
 #define users "data/users.txt"
+#define transactions "data/transactions.txt"
 
-void write_to_ledger(string filename, string type, int requester, int payer, int amount) {
-    ofstream myfile;
-    myfile.open(filename, fstream::app);
-    myfile << type << ' ' << requester << ' ' << payer << ' ' << amount << endl;
-    myfile.close();
+void write_to_ledger(string filename, string type, int user_1, int user_2, int amount) {
+    ofstream f;
+    f.open(filename, fstream::app);
+
+    f << type << ' ' << user_1 << ' ' << user_2 << ' ' << amount << endl;
+
+    f.close();
 }
 
 int get_max_id(string filename, map<string, int> &user_id) {
@@ -28,7 +31,8 @@ int get_max_id(string filename, map<string, int> &user_id) {
     return id;
 }
 
-// Use .\create_transaction.exe [type] [requester] [payer] [amount]
+// Use .\create_transaction.exe r [requester] [payer] [amount]
+// Use .\create_transaction.exe p [payer] [requester] [amount]
 int main(int argc, char *argv[]) {
     assert(argc == 5);
 
@@ -40,11 +44,19 @@ int main(int argc, char *argv[]) {
     map<string, int> user_id;
     int max_id = get_max_id(users, user_id);
 
+    if (type == "p") {
+        requester = argv[3];
+        payer     = argv[2];
+    }
+
     assert(user_id[requester] <= max_id);
     assert(user_id[payer] <= max_id);
     assert(user_id[requester] != user_id[payer]);
 
-    write_to_ledger("data/testing.txt", type, user_id[requester], user_id[payer], amount);
+    if (type == "r")
+        write_to_ledger(transactions, type, user_id[requester], user_id[payer], amount);
+    else if (type == "p")
+        write_to_ledger(transactions, type, user_id[payer], user_id[requester], amount);
 
     return 0;
 }
