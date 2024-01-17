@@ -1,4 +1,4 @@
-# Creating a very simple ledger for me and my friends to use
+### Creating a very simple ledger for me and my friends to use.
 
 ## Usage Instructions:
 
