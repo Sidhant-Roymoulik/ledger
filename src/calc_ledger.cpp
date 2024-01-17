@@ -6,9 +6,11 @@
 
 using namespace std;
 
+#define users "data/users.txt"
+
 int iter_users() {
     ifstream ifs;
-    ifs.open("users.txt", fstream::app);
+    ifs.open(users, fstream::app);
 
     int id = -1;
     string user_name;
@@ -45,7 +47,7 @@ vector<int> fill_need(string filename, int num_users) {
 
 int main(int argc, char *argv[]) {
     int num_users   = iter_users();
-    vector<int> net = fill_need("testing.txt", num_users);
+    vector<int> net = fill_need("data/testing.txt", num_users);
 
     for (int i = 0; i < num_users; i++) {
         cout << net[i] << ' ';

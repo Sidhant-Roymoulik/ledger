@@ -5,6 +5,8 @@
 
 using namespace std;
 
+#define users "data/users.txt"
+
 void write_to_ledger(string filename, string type, int requester, int payer, int amount) {
     ofstream myfile;
     myfile.open(filename, fstream::app);
@@ -36,13 +38,13 @@ int main(int argc, char *argv[]) {
     assert(type == "r" || type == "p");
 
     map<string, int> user_id;
-    int max_id = get_max_id("users.txt", user_id);
+    int max_id = get_max_id(users, user_id);
 
     assert(user_id[requester] <= max_id);
     assert(user_id[payer] <= max_id);
     assert(user_id[requester] != user_id[payer]);
 
-    write_to_ledger("testing.txt", type, user_id[requester], user_id[payer], amount);
+    write_to_ledger("data/testing.txt", type, user_id[requester], user_id[payer], amount);
 
     return 0;
 }

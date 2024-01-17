@@ -5,9 +5,11 @@
 
 using namespace std;
 
+#define users "data/users.txt"
+
 int get_index(string name) {
     ifstream ifs;
-    ifs.open("users.txt", fstream::app);
+    ifs.open(users, fstream::app);
 
     int id = -1;
     string user_name;
@@ -28,7 +30,7 @@ void write_to_ledger(int id, string name) {
     if (id == -1) return;
 
     ofstream f;
-    f.open("users.txt", fstream::app);
+    f.open(users, fstream::app);
     f << id << ' ' << name << endl;
     f.close();
 }
