@@ -8,15 +8,6 @@ using namespace std;
 #define users "data/users.txt"
 #define transactions "data/transactions.txt"
 
-void write_to_ledger(string type, int user_1, int user_2, int amount) {
-    ofstream ofs;
-    ofs.open(transactions, fstream::app);
-
-    ofs << type << ' ' << user_1 << ' ' << user_2 << ' ' << amount << endl;
-
-    ofs.close();
-}
-
 int get_max_id(map<string, int> &user_id) {
     ifstream ifs;
     ifs.open(users, fstream::app);
@@ -29,6 +20,15 @@ int get_max_id(map<string, int> &user_id) {
     }
 
     return id;
+}
+
+void write_to_ledger(string type, int user_1, int user_2, int amount) {
+    ofstream ofs;
+    ofs.open(transactions, fstream::app);
+
+    ofs << type << ' ' << user_1 << ' ' << user_2 << ' ' << amount << endl;
+
+    ofs.close();
 }
 
 // Use .\create_transaction.exe r [requester] [debtor] [amount]
